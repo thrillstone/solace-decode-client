@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Solace event broker configuration
+# /src/solace/properties.js
