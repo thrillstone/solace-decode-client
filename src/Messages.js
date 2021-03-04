@@ -6,11 +6,11 @@ function Messages() {
     const [exampleReceived, setExampleReceived] = useState(false);
 
     const [messages, setMessages] = useState([]);
-    const [channelID, setChannel] = useState(0);
+    const [channel, setChannel] = useState(null);
 
 	useEffect(() => {
 		// const fetchMessages = () => {
-		// 	fetch(`http://localhost:8080/channels/${channelID}/messages`)
+		// 	fetch(`http://localhost:8080/channels/${channel.id}/messages`)
 		// 	.then((response) => {
 		// 		setMessages(response);
 		// 	})
@@ -19,12 +19,12 @@ function Messages() {
 		// 	});
 		// };
 		// fetchMessages();
-	}, [messages, channelID]);
+	}, [messages, channel]);
 	
 	return (
 		<div className="Messages">
 			Messages go here!
-            {messages}
+            {messages} {channel?.name}
 		</div>
 	);
 }

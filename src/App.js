@@ -2,7 +2,7 @@ import './App.css';
 import { EventContext } from "./solace/Messaging";
 import ExampleComponent from "./ExampleComponent";
 import Messages from "./Messages";
-import Channels from "./Channels";
+import ChannelsList from "./ChannelsList";
 import { useEffect, useContext, useState } from 'react';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
 	const [connected, setConnected] = useState(false);
 	const [channels, setChannels] = useState([]);
-	const selected = useState(0);
+	const [selectedChannel, setSelectedChannel] = useState(null);
 
 	useEffect(() => {
 
@@ -21,17 +21,24 @@ function App() {
 			})
 			.catch((error) => {
 				console.error(error);
+				setChannels([{name:'deCODE', id: 0},{name:'Solace', id: 1}]);
 			});
 		};
 
 		fetchChannels();
 
-	}, [channels]);
-	
+	}, []);
+
+	const channelChanged = (channel) => {
+		console.log(channel);
+		debugger
+		setSelectedChannel(channel);
+	}
+
 	return (
 		<div className="App">
-			<Channels channels={channels} />
-			<Messages channelID={selected} />
+			<ChannelsList channels={channels} onChangeChannel={channelChanged} />
+			<Messages channel={selectedChannel} />
 		</div>
 	);
 }
