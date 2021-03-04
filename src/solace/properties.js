@@ -1,9 +1,9 @@
 const properties = {
-	"url": "wss://localhost:443",
-	"vpnName": "default",
+	"url": "wss://mr1rvhmgxn1b0t.messaging.solace.cloud:443",
+	"vpnName": "decode",
 	"userName": "solace-cloud-client",
-	"clientName": "<use your own name>",
-	"password": "password",
+	"clientName": "Grace",
+	"password": "tjn2jlk195ntk213e5idk29929",
 	"reconnectRetries": -1
 };
 export default properties;
