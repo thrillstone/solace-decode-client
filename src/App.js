@@ -21,17 +21,14 @@ function App() {
 			})
 			.catch((error) => {
 				console.error(error);
-				setChannels([{name:'deCODE', id: 0},{name:'Solace', id: 1}]);
+				setChannels([{name:'deCODE', id: 0}, {name:'Solace', id: 1}]);
 			});
 		};
-
 		fetchChannels();
-
 	}, []);
 
 	const channelChanged = (channel) => {
 		console.log(channel);
-		debugger
 		setSelectedChannel(channel);
 	}
 
