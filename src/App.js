@@ -7,15 +7,39 @@ import { useEffect, useContext, useState } from 'react';
 
 function App() {
 	const messaging = useContext(EventContext);
-
 	const [connected, setConnected] = useState(false);
+
 	const [channels, setChannels] = useState([]);
 	const [selectedChannel, setSelectedChannel] = useState(null);
 
 	useEffect(() => {
+		const setupMessaging = () => {
+			messaging.connect()
+			.then(() => {
+				setConnected(true);
+			})
+			.catch(console.error);
+			messaging.on("channel", (event) => {
+				channels.push(event);
+			});
+			messaging.on("message", (event) => {
+				
+			});
+			messaging.subscribe(`channels/*/messages`);
+		};
+		setupMessaging();
+	}, [messaging]);
+
+	const publishMessage = (message) => {
+		if (connected){
+			messaging.publish(`channels/${selectedChannel.id}/messages`, message);
+		}
+	}
+
+	useEffect(() => {
 
 		const fetchChannels = () => {
-			fetch('http://localhost:8080/channels')
+			fetch('http://localhost:8085/channels')
 			.then((response) => {
 				setChannels(response);
 			})
@@ -37,8 +61,10 @@ function App() {
 
 	return (
 		<div className="App">
-			<ChannelsList channels={channels} onChangeChannel={channelChanged} />
-			<Messages channel={selectedChannel} />
+			<div class="container">
+				<ChannelsList channels={channels} onChangeChannel={channelChanged} />
+				<Messages channel={selectedChannel} />
+			</div>
 		</div>
 	);
 }

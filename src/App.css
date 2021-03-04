@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+/* custom css */
+
+.container {
+  display: flex; 
+}
+
+.channels-list {
+  flex-grow: 1; 
+  text-align: left;
+  padding: 48px;
+}
+
+.channel {
+  font-size: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.messages-list {
+  flex-grow: 4; 
+  padding: 48px;
+}
