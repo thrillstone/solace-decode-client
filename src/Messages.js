@@ -63,7 +63,7 @@ function Messages(props) {
 		<div className="Messages">
 			<div className="channel_summary">
 				<div className="summary_header" onClick={toggleSummaryVisible}>
-					<div className="summary_title">{channelRef.current.name}</div>
+					<div className="summary_title">{props.channel.name}</div>
 					{summaryVisibile &&
 						<div className="read_status">
 							<div><b>80</b> Unread messages</div>
