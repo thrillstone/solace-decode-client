@@ -15,6 +15,7 @@ function App() {
 	const [addChannelVisible, setAddChannelVisible] = useState(false);
 	const [newChannelName, setNewChannelName] = useState("");
 	const [newChannelType, setNewChannelType] = useState("social");
+	const [newChannelDescription, setNewChannelDescription] = useState("");
 
 	useEffect(() => {
 		const setupMessaging = () => {
@@ -86,7 +87,8 @@ function App() {
 			body: JSON.stringify({
 				name: newChannelName,
 				channelType: newChannelType,
-				time: date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+				time: date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+				description: newChannelDescription
 			})
 		}).catch(console.error)
 		.finally(() => setAddChannelVisible(false));
@@ -102,6 +104,10 @@ function App() {
 
 	const changeChannelType = (event) => {
 		setNewChannelType(event.target.value);
+	}
+
+	const changeChannelDescription = (event) => {
+		setNewChannelDescription(event.target.value);
 	}
 
 	if (!connected) {
@@ -134,7 +140,12 @@ function App() {
 										<option value="work">Work</option>
 									</select>
 								</label>
+								<label>
+									Description:
+									<textarea class="new_channel_description" resize="none" onChange={changeChannelDescription}/>
+								</label>
 								<button onClick={saveChannel}>Save</button>
+								<button onClick={toggleAddChannelVisible}>Cancel</button>
 							</div>
 						</div>
 					</div>

@@ -19,6 +19,7 @@
 	display: flex;
 	flex-direction: row;
 	padding-left: 30px;
+	padding-bottom: 20px;
 }
 
 .summary_header {
@@ -82,7 +83,6 @@
 
 .summary_section {
 	padding-top: 10px;
-	padding-bottom: 20px;
 	padding-left: 30px;
 	padding-right: 30px;
 }
