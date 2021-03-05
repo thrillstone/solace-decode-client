@@ -32,6 +32,8 @@
   }
   
   .messageText {
+	color: #707070;
+    font-size: 14px;
   }
   
   .chat_footer {

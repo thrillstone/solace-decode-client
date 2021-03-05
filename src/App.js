@@ -84,6 +84,10 @@ function App() {
 		setNewChannelName(event.target.value)
 	}
 
+	if (!connected) {
+		return <h1>Loading</h1>;
+	}
+
 	return (
 		<div className="App">
 			<div className="container">
