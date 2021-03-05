@@ -159,3 +159,18 @@
 	margin-left: 0.5%;
 	margin-right: 0.5%;
   }
+
+.sendButton {
+	border: 0;
+	border-radius: 2px;
+	background-color: #005EA4;
+}
+
+.sendButton:hover {
+	background-color: #1a7bc3;
+}
+
+.sendButton > img {
+	-webkit-filter: invert(100%);
+	filter: invert(100%);
+}

@@ -2,9 +2,11 @@ import './App.css';
 import { EventContext } from "./solace/Messaging";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
-import { useEffect, useContext, useState, useRef } from 'react';
+import Login from "./Login";
 import Search from "./Search";
 import Branding from "./Branding";
+import { useEffect, useContext, useState, useRef } from 'react';
+import { user, UserContext } from "./auth/User"
 
 function App() {
 	const messaging = useContext(EventContext);
@@ -18,6 +20,12 @@ function App() {
 	const channelRef = useRef();
 	channelRef.current = channels;
 	const [newChannelDescription, setNewChannelDescription] = useState("");
+
+	const [userState, setUser] = useState(user);
+
+  useEffect(() => {
+    userState.save();
+  }, [userState])
 
 	useEffect(() => {
 		const setupMessaging = () => {
@@ -117,35 +125,38 @@ function App() {
 	}
 
 	return (
-		<div className="App">
-			<div className="header" style={{display: 'flex'}}>
-				<Branding/>
-				<Search channel={selectedChannel} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
-			</div>
-			<div className="container">
-				<ChannelsList channels={channels} onChangeChannel={channelChanged} selectedChannel={selectedChannel} onNewChannel={toggleAddChannelVisible}/>
-				<Messages channel={selectedChannel} />
-				{addChannelVisible &&
-					<div className="dialog-container">
-						<div className="dialog">
-							<div className="dialog-contents">
-								<h2>Create Channel</h2>
-								<p>Name</p>
-								<input className="new_channel_name textarea" type="text" value={newChannelName} onChange={changeName}/>
-								<p>Description</p>
-								<textarea class="new_channel_description textarea" resize="none" onChange={changeChannelDescription}/>
-								<p>Type</p>
-								<a className="typeButton hobbyButton" value="hobbies" onClick={changeChannelType}>Hobbies</a>
-								<a className="typeButton socialButton" value="social" onClick={changeChannelType}>Social</a>
-								<a className="typeButton workButton" value="work" onClick={changeChannelType}>Work</a>
-								<button className="createButton" onClick={saveChannel}>CREATE</button>
-								<button className="cancelButton" onClick={toggleAddChannelVisible}>CANCEL</button>
-							</div>
-						</div>
+    <UserContext.Provider value={[userState, setUser]}>
+      <div className="App">
+        <div className="header" style={{display: 'flex'}}>
+          <Branding/>
+          <Search channel={selectedChannel} channels={channels} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
+        </div>
+        <div className="container">
+          <ChannelsList channels={channels} onChangeChannel={channelChanged} selectedChannel={selectedChannel} onNewChannel={toggleAddChannelVisible}/>
+          <Messages channel={selectedChannel} />
+          {!userState.userName && <Login />}
+		  {addChannelVisible &&
+			<div className="dialog-container">
+				<div className="dialog">
+					<div className="dialog-contents">
+						<h2>Create Channel</h2>
+						<p>Name</p>
+						<input className="new_channel_name textarea" type="text" value={newChannelName} onChange={changeName}/>
+						<p>Description</p>
+						<textarea class="new_channel_description textarea" resize="none" onChange={changeChannelDescription}/>
+						<p>Type</p>
+						<a className="typeButton hobbyButton" value="hobbies" onClick={changeChannelType}>Hobbies</a>
+						<a className="typeButton socialButton" value="social" onClick={changeChannelType}>Social</a>
+						<a className="typeButton workButton" value="work" onClick={changeChannelType}>Work</a>
+						<button className="createButton" onClick={saveChannel}>CREATE</button>
+						<button className="cancelButton" onClick={toggleAddChannelVisible}>CANCEL</button>
 					</div>
-				}
+				</div>
 			</div>
-		</div>
+			}
+        </div>
+      </div>
+    </UserContext.Provider>
 	);
 }
 

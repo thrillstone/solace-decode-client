@@ -1,8 +1,10 @@
 import "./Messages.css";
 import { EventContext } from "./solace/Messaging";
+import { UserContext } from "./auth/User";
 import { useEffect, useContext, useState, useRef } from 'react';
 import Message from './Message'
 import './App.css'
+import {default as send} from './icons/send-24px.svg';
 
 function uuidv4() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -14,6 +16,7 @@ function uuidv4() {
 function Messages(props) {
 	const messaging = useContext(EventContext);
 	
+	const user = useContext(UserContext);
 	const [messages, setMessages] = useState([]);
 	const [text, setText] = useState("");
 	const [currentChannel, setCurrentChannel] = useState(props.channel);
@@ -70,8 +73,10 @@ function Messages(props) {
 
 	const publishMessage = () => {
 		if (props.channel) {
-			console.log("Publishing to channel", props.channel)
-			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: uuidv4(), userId: 0, name: "Faraz", text: text, timestamp: "1:46 PM"});
+			debugger
+			console.log("Publishing to channel", props.channel, user)
+			const date = new Date().getTime();
+			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: user[0].id, userId: user[0].id, name: user[0].userName, avatar: user[0].image, text: text, timestamp: `${date}`});
 		}
 	}
 
@@ -112,7 +117,9 @@ function Messages(props) {
 			<div className="chat_footer">
 				<div className="chat_textbox">
 					<input value={text} onChange={(e) => setText(e.target.value)} placeholder="Send a message" />
-					<button type="submit" disabled={!text} onClick={publishMessage}>↩️</button>
+					<button class="sendButton" type="submit" disabled={!text} onClick={publishMessage}>
+						<img src={send}/>
+					</button>
 				</div>
 			</div>
 		</div>
