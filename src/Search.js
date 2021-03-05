@@ -46,9 +46,9 @@ class Search extends React.Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(query)
-		}).then(res => {
-            let messages = res.json();
-
+        
+		}).then(res => res.json())
+        .then(messages => {
             if (this.state.searchScope === SearchScope.current) {
                 messages = messages.filter(message => message.channelId === this.props.channel.id);
             }
@@ -57,8 +57,8 @@ class Search extends React.Component {
 				headers: {
 					'Content-Type': 'application/json',
 				}
-			}).then(res => {
-                const channels = res.json();
+			}).then(res => res.json())
+            .then(channels => {
                 let channelMap = {};
 
                 for (let channel in channels) {
