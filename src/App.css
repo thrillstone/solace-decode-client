@@ -2,14 +2,22 @@
 
 .App {
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
 }
 
 .App .container {
   width: 100vw;
-  height: 100vh;
   display: flex;
+  flex: 1;
+}
+
+.App .header {
+  width: 100vw;
+  height: 4em;
+  display: flex;
+  background-color: #6a81de
 }
 
 Messages {
@@ -23,4 +31,8 @@ Messages {
 
 .dialog-contents {
   margin: 5%;
+}
+
+.new_channel_description {
+  resize: none;
 }

@@ -3,6 +3,8 @@ import { EventContext } from "./solace/Messaging";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
 import { useEffect, useContext, useState, useRef } from 'react';
+import Search from "./Search";
+import Branding from "./Branding";
 
 function App() {
 	const messaging = useContext(EventContext);
@@ -15,6 +17,7 @@ function App() {
 	const [newChannelType, setNewChannelType] = useState("social");
 	const channelRef = useRef();
 	channelRef.current = channels;
+	const [newChannelDescription, setNewChannelDescription] = useState("");
 
 	useEffect(() => {
 		const setupMessaging = () => {
@@ -86,7 +89,8 @@ function App() {
 			body: JSON.stringify({
 				name: newChannelName,
 				channelType: newChannelType,
-				time: date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+				time: date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+				description: newChannelDescription
 			})
 		}).catch(console.error)
 		.finally(() => setAddChannelVisible(false));
@@ -104,12 +108,20 @@ function App() {
 		setNewChannelType(event.target.value);
 	}
 
+	const changeChannelDescription = (event) => {
+		setNewChannelDescription(event.target.value);
+	}
+
 	if (!connected) {
 		return <h1>Loading</h1>;
 	}
 
 	return (
 		<div className="App">
+			<div className="header" style={{display: 'flex'}}>
+				<Branding/>
+				<Search channel={selectedChannel} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
+			</div>
 			<div className="container">
 				<ChannelsList channels={channels} onChangeChannel={channelChanged} selectedChannel={selectedChannel} onNewChannel={toggleAddChannelVisible}/>
 				<Messages channel={selectedChannel} />
@@ -130,7 +142,12 @@ function App() {
 										<option value="work">Work</option>
 									</select>
 								</label>
+								<label>
+									Description:
+									<textarea class="new_channel_description" resize="none" onChange={changeChannelDescription}/>
+								</label>
 								<button onClick={saveChannel}>Save</button>
+								<button onClick={toggleAddChannelVisible}>Cancel</button>
 							</div>
 						</div>
 					</div>
