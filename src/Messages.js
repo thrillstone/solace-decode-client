@@ -1,5 +1,6 @@
 import "./Messages.css";
 import { EventContext } from "./solace/Messaging";
+import { UserContext } from "./auth/User";
 import { useEffect, useContext, useState, useRef } from 'react';
 import Message from './Message'
 import './App.css'
@@ -14,6 +15,7 @@ function uuidv4() {
 function Messages(props) {
 	const messaging = useContext(EventContext);
 	
+	const user = useContext(UserContext);
 	const [messages, setMessages] = useState([]);
 	const [text, setText] = useState("");
 	const [currentChannel, setCurrentChannel] = useState(props.channel);
@@ -70,9 +72,10 @@ function Messages(props) {
 
 	const publishMessage = () => {
 		if (props.channel) {
-			console.log("Publishing to channel", props.channel)
+			debugger
+			console.log("Publishing to channel", props.channel, user)
 			const date = new Date().getTime();
-			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: uuidv4(), userId: 0, name: "Faraz", text: text, timestamp: `${date}`});
+			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: user[0].id, userId: user[0].id, name: user[0].userName, avatar: user[0].image, text: text, timestamp: `${date}`});
 		}
 	}
 
