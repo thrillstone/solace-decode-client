@@ -1,6 +1,6 @@
 import "./Messages.css";
 import { EventContext } from "./solace/Messaging";
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useRef } from 'react';
 import Message from './Message'
 import './App.css'
 
@@ -14,27 +14,36 @@ function uuidv4() {
 function Messages(props) {
 	const messaging = useContext(EventContext);
 	
-	const [messages, setMessages] = useState([{type: "message", channelId: 0, id: 0, userId: 0, name: "Faraz", text: "Hello, world! This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message.", timestamp: "1:46"}, {type: "message", channelId: 0, id: 1, userId: 1, name: "World", text: "Hi, Faraz! https://www.reddit.com/r/all/", timestamp: "1:47"}]);
-	const [text, setText] = useState("")
+	const [messages, setMessages] = useState([]);
+	const [text, setText] = useState("");
+	const [currentChannel, setCurrentChannel] = useState(props.channel);
+	const channelRef = useRef();
+	channelRef.current = props.channel;
+
+	const receiveMessage = (event) => {
+		console.log(event, channelRef.current)
+		if (event.channelId === channelRef.current?.id) {
+			messages.push(event);
+			setMessages([...messages]);
+		}
+	};
 
 	useEffect(() => {
 		const setupMessaging = () => {
-			messaging.on("message", (event) => {
-				console.log(event, props.channel)
-				if (event.channelId === props.channel?.id) {
-					messages.push(event);
-					setMessages([...messages]);
-				}
-			});
+			messaging.on("message", receiveMessage);
 		};
 		setupMessaging();
-	}, [messaging]);
+	}, [messaging, props.channel]);
 
 	useEffect(() => {
+		messaging.off("message", receiveMessage);
+		console.log("Update chnanle", props.channel);
+		setCurrentChannel(props.channel);
 		if (props.channel) {
 			console.log("Subscribing to channel", props.channel)
 			messaging.subscribe(`channels/${props.channel.id}/messages`);
 		}
+		setMessages([]);
 	}, [props.channel]);
 
 	const publishMessage = () => {
