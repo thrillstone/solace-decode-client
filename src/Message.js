@@ -32,6 +32,11 @@ function Message(props) {
     }
   }
 
+  const linkify = (text) => {
+    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, url => `<a href="${url}">${url}</a>`);
+  }
+
   return (
     <div className="message">
         <img className="messageImage" src={image(props.message.avatar)}></img>
@@ -40,7 +45,7 @@ function Message(props) {
             <span className="messageName">{props.message.name}</span>
             <span className="messageTime">{toTime(props.message.timestamp)}</span>
           </div>
-          <div className="messageText">{props.message.text}</div>
+          <div className="messageText" dangerouslySetInnerHTML={{__html: linkify(props.message.text)}}/>
         </div>
     </div>
   );
