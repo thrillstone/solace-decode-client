@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
+
 .App {
   display: flex;
   width: 100vw;
@@ -12,4 +14,9 @@
 
 Messages {
   flex: 1;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
