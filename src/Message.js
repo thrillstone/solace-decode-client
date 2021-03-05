@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import image1 from "./avatars/1.png";
+import image2 from "./avatars/2.png";
+import image3 from "./avatars/3.png";
+import image4 from "./avatars/4.png";
 import './App.css'
 
 function Message(props) {
@@ -15,9 +19,22 @@ function Message(props) {
     return `${hours}:${date.getMinutes()} ${am}`;
   }
 
+  const image = (avatar) => {
+    console.log(props.message, "message");
+    if (avatar == 1) {
+      return image1;
+    } else if (avatar == 2) {
+      return image2;
+    } else if (avatar == 3) {
+      return image3;
+    } else {
+      return image4;
+    }
+  }
+
   return (
     <div className="message">
-        <img className="messageImage" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"></img>
+        <img className="messageImage" src={image(props.message.avatar)}></img>
         <div className="content">
         <div>
             <span className="messageName">{props.message.name}</span>
