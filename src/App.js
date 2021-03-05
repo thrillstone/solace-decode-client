@@ -45,20 +45,24 @@ function App() {
 			.then((response) => response.json())
 			.then((c) => {
 				setChannels(c);
+				if (c.length > 0) {
+					setSelectedChannel(c[0]);
+				}
 			})
 			.catch((error) => {
 				console.error(error);
-				setChannels([{name:'deCODE', id: 0}, {name:'Solace', id: 1}]);
+				var x = [{name:'deCODE', id: 0}, {name:'Solace', id: 1}]
+				setChannels(x);
+				if (x.length > 0) {
+					setSelectedChannel(x[0]);
+				}
 			});
 		};
 		fetchChannels();
 	}, []);
 
-	// TODO selection won't work this way, need to fix
 	const channelChanged = (channel) => {
 		console.log(channel);
-		channels.forEach(c => c.selected = false);
-		channels.find(c => c.id = channel.id).selected = true;
 		setSelectedChannel(channel);
 		setChannels(channels);
 	}
@@ -91,7 +95,7 @@ function App() {
 	return (
 		<div className="App">
 			<div className="container">
-				<ChannelsList channels={channels} onChangeChannel={channelChanged} onNewChannel={toggleAddChannelVisible}/>
+				<ChannelsList channels={channels} onChangeChannel={channelChanged} selectedChannel={selectedChannel} onNewChannel={toggleAddChannelVisible}/>
 				<Messages channel={selectedChannel} />
 				{addChannelVisible &&
 					<div className="dialog-container">
