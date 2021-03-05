@@ -16,7 +16,7 @@ function Message(props) {
       am = "PM";
     }
     
-    return `${hours}:${date.getMinutes()} ${am}`;
+    return `${hours}:${date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()} ${am}`;
   }
 
   const image = (avatar) => {
