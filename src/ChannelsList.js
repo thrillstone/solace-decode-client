@@ -9,7 +9,7 @@ function ChannelsList(props) {
       <div>
         {
           props.channels.map((channel) =>
-              <Channel channel={channel} onChangeChannel={props.onChangeChannel} />
+              <Channel channel={channel} selectedChannel={props.selectedChannel} onChangeChannel={props.onChangeChannel} />
           )
         }
       </div>

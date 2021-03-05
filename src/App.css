@@ -28,3 +28,7 @@ Messages {
   height: 40vmin;
   pointer-events: none;
 }
+
+.dialog-contents {
+  margin: 5%;
+}
