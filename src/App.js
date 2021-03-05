@@ -2,6 +2,8 @@ import './App.css';
 import { EventContext } from "./solace/Messaging";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
+import Search from "./Search";
+import Branding from "./Branding";
 import { useEffect, useContext, useState } from 'react';
 
 function App() {
@@ -86,6 +88,10 @@ function App() {
 
 	return (
 		<div className="App">
+			<div className="header" style={{display: 'flex'}}>
+				<Branding/>
+				<Search channel={{id: 0, name: 'deCODE'}} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
+			</div>
 			<div className="container">
 				<ChannelsList channels={channels} onChangeChannel={channelChanged} onNewChannel={toggleAddChannelVisible}/>
 				<Messages channel={selectedChannel} />
