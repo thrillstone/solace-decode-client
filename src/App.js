@@ -129,7 +129,7 @@ function App() {
       <div className="App">
         <div className="header" style={{display: 'flex'}}>
           <Branding/>
-          <Search channel={selectedChannel} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
+          <Search channel={selectedChannel} channels={channels} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
         </div>
         <div className="container">
           <ChannelsList channels={channels} onChangeChannel={channelChanged} selectedChannel={selectedChannel} onNewChannel={toggleAddChannelVisible}/>
