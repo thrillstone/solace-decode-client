@@ -76,7 +76,8 @@ function Messages(props) {
 			debugger
 			console.log("Publishing to channel", props.channel, user)
 			const date = new Date().getTime();
-			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: user[0].id, userId: user[0].id, name: user[0].userName, avatar: user[0].image, text: text, timestamp: `${date}`});
+
+			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: uuidv4(), userId: user[0].userId, name: user[0].userName, avatar: user[0].image, text: text, timestamp: `${date}`});
 		}
 	}
 
