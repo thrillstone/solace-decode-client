@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.message {
+  text-align: left;
+  margin-left: 1%;
+}
+
+.messageName {
+  font-weight: bold;
+}
+
+.messageTime {
+  margin-left: 0.5%;
+  font-size: 10px;
+}
+
+.messageText {
+  margin-top: 0%;
+}
