@@ -1,0 +1,57 @@
+.Messages {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.Messages .chat_body {
+	flex: 1;
+}
+
+.Message .icon {
+	margin: 0 8px;
+}
+
+.message {
+	display: flex;
+	padding: 12px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+}
+  
+  .messageName {
+	font-weight: bold;
+	margin-right: 50px;
+  }
+  
+  .messageTime {
+	font-size: 12px;
+  }
+  
+  .messageText {
+  }
+  
+  .chat_footer {
+	display: flex;
+	height: 100px;
+	position: relative;
+  }
+  
+  .chat_textarea {
+	flex: 1;
+  }
+
+  .chat_textarea input {
+	  width :100%;
+  }
+
+  .Messages .chat_footer button {
+	  position: absolute;
+	  right: 24px;
+	  top: 24px;
+	  width: 48px;
+	  height: 48px;
+  }

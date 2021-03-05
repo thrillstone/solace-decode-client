@@ -22,3 +22,10 @@ body {
   top: 30%;
   left: 20%;
 }
+
+.icon {
+	border-radius: 8px;
+	width: 40px;
+	height: 40px;
+	background: #c4c4c480;
+}
