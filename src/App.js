@@ -7,6 +7,9 @@ import Search from "./Search";
 import Branding from "./Branding";
 import { useEffect, useContext, useState, useRef } from 'react';
 import { user, UserContext } from "./auth/User"
+import hobbyGif from './hobby.gif';
+import socialGif from './social.gif';
+import workGif from './work.gif';
 
 function App() {
 	const messaging = useContext(EventContext);
@@ -145,9 +148,28 @@ function App() {
 						<p>Description</p>
 						<textarea class="new_channel_description textarea" resize="none" onChange={changeChannelDescription}/>
 						<p>Type</p>
-						<a className="typeButton hobbyButton" value="hobbies" onClick={changeChannelType}>Hobbies</a>
-						<a className="typeButton socialButton" value="social" onClick={changeChannelType}>Social</a>
-						<a className="typeButton workButton" value="work" onClick={changeChannelType}>Work</a>
+
+
+						<a className="typeButton hobbyButton" value="hobbies" onClick={changeChannelType}>
+							<div className="buttonInnerDiv">
+								Hobbies 
+								<img className="buttonGif" src={hobbyGif}></img>
+							</div>
+						</a>
+						<a className="typeButton socialButton" value="social" onClick={changeChannelType}>
+							<div className="buttonInnerDiv">
+								Social 
+								<img className="buttonGif" src={socialGif}></img>
+							</div>
+						</a>
+						<a className="typeButton workButton" value="work" onClick={changeChannelType}>
+							<div className="buttonInnerDiv">
+								Work
+								<img className="buttonGif" src={workGif}></img>
+							</div>
+						</a>
+
+
 						<button className="createButton" onClick={saveChannel}>CREATE</button>
 						<button className="cancelButton" onClick={toggleAddChannelVisible}>CANCEL</button>
 					</div>

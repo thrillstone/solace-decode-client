@@ -16,11 +16,13 @@ body {
 
 .dialog-container .dialog {
   width: 40vw;
-  height: 65vh;
+  height: 72vh;
   background: white;
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 30%;
+  border-radius: 10px;
+  border-width: 1px;
 }
 
 .icon {
