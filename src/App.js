@@ -100,8 +100,11 @@ function App() {
 				{addChannelVisible &&
 					<div className="dialog-container">
 						<div className="dialog">
-							<input type="text" value={newChannelName} onChange={changeName}/>
-							<button onClick={saveChannel}>Save</button>
+							<div className="dialog-contents">
+								<h2>Add a channel</h2>
+								<input type="text" value={newChannelName} onChange={changeName}/>
+								<button onClick={saveChannel}>Save</button>
+							</div>
 						</div>
 					</div>
 				}
