@@ -137,6 +137,10 @@ class Search extends React.Component {
         return this.getHighlights(this.getHighlights(messageText, this.state.inputText), `@${this.props.user.name}`);
     }
 
+    getMessageChannel = (message) => {
+        return this.props.channels.find(channel => channel.id === message.channelId);
+    }
+
     render = () => {
         return <div style={{width: '100%', display: 'flex', alignItems: 'center'}}>
             <div style={{width: '100%', height: '2.5em', backgroundColor: 'white', display: 'flex', borderRadius: '4px'}}>
@@ -160,7 +164,7 @@ class Search extends React.Component {
                                 <div>
                                     <span>
                                         <span><strong>{message.name}</strong></span>
-                                        <span className="messageTime">{' in '}<a onClick={() => this.goToChannel(message.channel)}>{message.channel.name}</a></span>
+                                        <span className="messageTime">{' in '}<a onClick={() => this.goToChannel(this.getMessageChannel(message))}>{this.getMessageChannel(message).name}</a></span>
                                     </span>
                                     <span style={{marginLeft: '10px'}} className="messageTime">{message.timestamp}</span>
                                 </div>
