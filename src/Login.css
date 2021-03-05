@@ -1,0 +1,8 @@
+#login-page {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(rgb(106, 129, 222), rgb(0, 94, 164));
+}
