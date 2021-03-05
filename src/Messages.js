@@ -20,8 +20,11 @@ function Messages(props) {
 	useEffect(() => {
 		const setupMessaging = () => {
 			messaging.on("message", (event) => {
-				messages.push(event);
-				setMessages([...messages]);
+				console.log(event, props.channel)
+				if (event.channelId === props.channel?.id) {
+					messages.push(event);
+					setMessages([...messages]);
+				}
 			});
 		};
 		setupMessaging();

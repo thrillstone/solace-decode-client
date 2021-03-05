@@ -23,11 +23,17 @@ function App() {
 			.catch(console.error);
 			messaging.on("channel", (event) => {
 				channels.push(event);
-				setChannels(channels);
+				setChannels([...channels]);
 			});
 		};
 		setupMessaging();
 	}, [messaging]);
+
+	useEffect(() => {
+		if (connected) {
+			messaging.subscribe("channels");
+		}
+	}, [connected])
 
 	const publishMessage = (message) => {
 		if (connected){
