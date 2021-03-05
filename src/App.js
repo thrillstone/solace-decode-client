@@ -2,7 +2,7 @@ import './App.css';
 import { EventContext } from "./solace/Messaging";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useRef } from 'react';
 
 function App() {
 	const messaging = useContext(EventContext);
@@ -13,6 +13,8 @@ function App() {
 	const [addChannelVisible, setAddChannelVisible] = useState(false);
 	const [newChannelName, setNewChannelName] = useState("");
 	const [newChannelType, setNewChannelType] = useState("social");
+	const channelRef = useRef();
+	channelRef.current = channels;
 
 	useEffect(() => {
 		const setupMessaging = () => {
@@ -22,8 +24,8 @@ function App() {
 			})
 			.catch(console.error);
 			messaging.on("channel", (event) => {
-				channels.push(event);
-				setChannels([...channels]);
+				channelRef.current.push(event);
+				setChannels([...channelRef.current]);
 			});
 		};
 		setupMessaging();
