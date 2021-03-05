@@ -39,6 +39,22 @@ function Messages(props) {
 	}, [messaging]);
 
 	useEffect(() => {
+		if (props.channel) {
+			fetch(`http://localhost:8085/channels/${props.channel.id}/messages`, {
+				headers: {
+					'Content-Type': 'application/json',
+				}
+				})
+			.then((response) => response.json())
+			.then((c) => {
+				setMessages(c)
+			})
+			.catch((error) => {
+				console.error(error);
+				setMessages([]);
+			});
+		}
+		
 		console.log("Update chnanle", props.channel);
 		setCurrentChannel(props.channel);
 		if (props.channel) {
@@ -63,7 +79,7 @@ function Messages(props) {
 		<div className="Messages">
 			<div className="channel_summary">
 				<div className="summary_header" onClick={toggleSummaryVisible}>
-					<div className="summary_title">{props.channel.name}</div>
+					<div className="summary_title">{channelRef.current?.name}</div>
 					{summaryVisibile &&
 						<div className="read_status">
 							<div><b>80</b> Unread messages</div>

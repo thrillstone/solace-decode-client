@@ -5,7 +5,7 @@ import ChannelsList from "./ChannelsList";
 import Login from "./Login";
 import Search from "./Search";
 import Branding from "./Branding";
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useRef } from 'react';
 import { user, UserContext } from "./auth/User"
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
 	const [addChannelVisible, setAddChannelVisible] = useState(false);
 	const [newChannelName, setNewChannelName] = useState("");
 	const [newChannelType, setNewChannelType] = useState("social");
+	const channelRef = useRef();
+	channelRef.current = channels;
 	const [newChannelDescription, setNewChannelDescription] = useState("");
 
 	const [userState, setUser] = useState(user);
@@ -33,8 +35,8 @@ function App() {
 			})
 			.catch(console.error);
 			messaging.on("channel", (event) => {
-				channels.push(event);
-				setChannels([...channels]);
+				channelRef.current.push(event);
+				setChannels([...channelRef.current]);
 			});
 		};
 		setupMessaging();
