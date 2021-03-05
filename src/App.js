@@ -2,7 +2,9 @@ import './App.css';
 import { EventContext } from "./solace/Messaging";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
+import Login from "./Login";
 import { useEffect, useContext, useState } from 'react';
+import { user, UserContext } from "./auth/User"
 
 function App() {
 	const messaging = useContext(EventContext);
@@ -12,6 +14,12 @@ function App() {
 	const [selectedChannel, setSelectedChannel] = useState(null);
 	const [addChannelVisible, setAddChannelVisible] = useState(false);
 	const [newChannelName, setNewChannelName] = useState("");
+
+	const [userState, setUser] = useState(user);
+
+  useEffect(() => {
+    userState.save();
+  }, [userState])
 
 	useEffect(() => {
 		const setupMessaging = () => {
@@ -89,20 +97,23 @@ function App() {
 	}
 
 	return (
-		<div className="App">
-			<div className="container">
-				<ChannelsList channels={channels} onChangeChannel={channelChanged} onNewChannel={toggleAddChannelVisible}/>
-				<Messages channel={selectedChannel} />
-				{addChannelVisible &&
-					<div className="dialog-container">
-						<div className="dialog">
-							<input type="text" value={newChannelName} onChange={changeName}/>
-							<button onClick={saveChannel}>Save</button>
-						</div>
-					</div>
-				}
-			</div>
-		</div>
+    <UserContext.Provider value={[userState, setUser]}>
+      <div className="App">
+        <div className="container">
+          <ChannelsList channels={channels} onChangeChannel={channelChanged} onNewChannel={toggleAddChannelVisible}/>
+          <Messages channel={selectedChannel} />
+          {!userState.userName && <Login />}
+          {addChannelVisible &&
+            <div className="dialog-container">
+              <div className="dialog">
+                <input type="text" value={newChannelName} onChange={changeName}/>
+                <button onClick={saveChannel}>Save</button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </UserContext.Provider>
 	);
 }
 
