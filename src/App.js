@@ -23,7 +23,6 @@ function App() {
 				channels.push(event);
 				setChannels(channels);
 			});
-			messaging.subscribe(`channels/*/messages`);
 		};
 		setupMessaging();
 	}, [messaging]);
@@ -37,9 +36,15 @@ function App() {
 	useEffect(() => {
 
 		const fetchChannels = () => {
-			fetch('http://localhost:8085/channels')
-			.then((response) => {
-				setChannels(response);
+			fetch('http://localhost:8085/channels', {
+				headers: {
+				  'Content-Type': 'application/json',
+				}
+			  })
+			.then((response) => response.json())
+			.then((c) => {
+				debugger
+				setChannels(c);
 			})
 			.catch((error) => {
 				console.error(error);

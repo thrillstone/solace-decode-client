@@ -16,7 +16,6 @@ class Messaging {
 	 */
 	connect() {
 		return new Promise((resolve, reject) => {
-			debugger
 			var factoryProps = new this.solace.SolclientFactoryProperties();
 			factoryProps.profile = this.solace.SolclientFactoryProfiles.version10;
 			this.solace.SolclientFactory.init(factoryProps);
@@ -116,7 +115,6 @@ class Messaging {
 	 * @returns {Promise} A promise with the subscription event. Rejects with an object with a reason.
 	 */
 	subscribe(topic) {
-		debugger
 		if (!this.session) {
 			return Promise.reject({
 				reason: "Session has not yet connected to the event broker"

@@ -7,7 +7,7 @@ function Channel(props) {
   }
 
   return (
-    <div onClick={handleClick} class="channel">
+    <div onClick={handleClick} className="channel">
         {props.channel.name}
     </div>
   );
