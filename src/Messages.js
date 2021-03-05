@@ -18,13 +18,15 @@ function Messages(props) {
 	const [text, setText] = useState("");
 	const [currentChannel, setCurrentChannel] = useState(props.channel);
 	const channelRef = useRef();
+	const messagesRef = useRef();
 	channelRef.current = props.channel;
+	messagesRef.current = messages;
 
 	const receiveMessage = (event) => {
 		console.log(event, channelRef.current)
 		if (event.channelId === channelRef.current?.id) {
-			messages.push(event);
-			setMessages([...messages]);
+			messagesRef.current.push(event);
+			setMessages([...messagesRef.current]);
 		}
 	};
 
@@ -33,10 +35,9 @@ function Messages(props) {
 			messaging.on("message", receiveMessage);
 		};
 		setupMessaging();
-	}, [messaging, props.channel]);
+	}, [messaging]);
 
 	useEffect(() => {
-		messaging.off("message", receiveMessage);
 		console.log("Update chnanle", props.channel);
 		setCurrentChannel(props.channel);
 		if (props.channel) {
