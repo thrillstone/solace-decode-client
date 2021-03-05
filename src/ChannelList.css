@@ -1,0 +1,32 @@
+.ChannelList {
+	width: 350px;
+	border-right: 1px solid #D4DAF5;
+}
+
+.ChannelList h3 {
+	display: flex;
+	font-size: 24px;
+	line-height: 28px;
+	font-weight: 400;
+	margin: 24px;
+}
+
+.ChannelList span {
+	flex: 1;
+}
+
+.ChannelList .button {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	border: unset;
+	color: white;
+	background: #005ea4;
+	border-radius: 24px;
+	font-size: 28px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 24px;
+	cursor: pointer;
+	user-select: none;
+}

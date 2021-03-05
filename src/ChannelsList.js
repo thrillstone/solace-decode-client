@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import './ChannelList.css';
+import React from 'react';
 import Channel from "./Channel";
 
 function ChannelsList(props) {
   return (
-    <div class="channels-list">
-      <h3>Channels</h3>
+    <div className="ChannelList">
+      <h3><span>Channels</span><div className="button" onClick={props.onNewChannel}>+</div></h3>
       <div>
         {
           props.channels.map((channel) =>

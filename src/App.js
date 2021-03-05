@@ -1,6 +1,5 @@
 import './App.css';
 import { EventContext } from "./solace/Messaging";
-import ExampleComponent from "./ExampleComponent";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
 import { useEffect, useContext, useState } from 'react';
@@ -11,6 +10,8 @@ function App() {
 
 	const [channels, setChannels] = useState([]);
 	const [selectedChannel, setSelectedChannel] = useState(null);
+	const [addChannelVisible, setAddChannelVisible] = useState(false);
+	const [newChannelName, setNewChannelName] = useState("");
 
 	useEffect(() => {
 		const setupMessaging = () => {
@@ -38,12 +39,11 @@ function App() {
 		const fetchChannels = () => {
 			fetch('http://localhost:8085/channels', {
 				headers: {
-				  'Content-Type': 'application/json',
+					'Content-Type': 'application/json',
 				}
 			  })
 			.then((response) => response.json())
 			.then((c) => {
-				debugger
 				setChannels(c);
 			})
 			.catch((error) => {
@@ -54,16 +54,49 @@ function App() {
 		fetchChannels();
 	}, []);
 
+	// TODO selection won't work this way, need to fix
 	const channelChanged = (channel) => {
 		console.log(channel);
+		channels.forEach(c => c.selected = false);
+		channels.find(c => c.id = channel.id).selected = true;
 		setSelectedChannel(channel);
+		setChannels(channels);
+	}
+
+	const saveChannel = () => {
+		fetch('http://localhost:8085/channels', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				name: newChannelName
+			})
+		}).catch(console.error)
+		.finally(() => setAddChannelVisible(false));
+	}
+
+	const toggleAddChannelVisible = () => {
+		setAddChannelVisible(!addChannelVisible);
+	}
+
+	const changeName = (event) => {
+		setNewChannelName(event.target.value)
 	}
 
 	return (
 		<div className="App">
-			<div class="container">
-				<ChannelsList channels={channels} onChangeChannel={channelChanged} />
+			<div className="container">
+				<ChannelsList channels={channels} onChangeChannel={channelChanged} onNewChannel={toggleAddChannelVisible}/>
 				<Messages channel={selectedChannel} />
+				{addChannelVisible &&
+					<div className="dialog-container">
+						<div className="dialog">
+							<input type="text" value={newChannelName} onChange={changeName}/>
+							<button onClick={saveChannel}>Save</button>
+						</div>
+					</div>
+				}
 			</div>
 		</div>
 	);

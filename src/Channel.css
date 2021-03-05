@@ -1,0 +1,38 @@
+.Channel {
+	display: flex;
+	margin: 12px 0;
+	padding: 12px 24px;
+}
+
+.name {
+	font-weight: 500;
+	margin-bottom: 12px;
+}
+
+.type {
+	flex: 1;
+}
+
+.icon {
+	border-radius: 8px;
+	width: 40px;
+	height: 40px;
+	background: #c4c4c480;
+	margin: 0 8px;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	font-size: 12px;
+}
+
+.sub-info {
+	color: #707070;
+	display: flex;
+}
+
+.Channel.selected {
+	background: #D4DAF530;
+}
