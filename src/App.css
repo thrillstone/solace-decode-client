@@ -33,6 +33,82 @@ Messages {
   margin: 5%;
 }
 
+.textarea {
+  border-radius: 5px;
+  border-width: 1px;
+  width: 100%;
+  border-style:solid;
+}
+
 .new_channel_description {
   resize: none;
+}
+
+.new_channel_name {
+  height: 25px;
+}
+
+.cancelButton {
+  margin-top: 2%;
+  background-color: white;
+  border-radius: 5px;
+  border-width: 0px;
+  border-color: white;
+  color: #005ea4;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  float: right;
+  cursor: pointer;
+}
+
+.createButton {
+  margin-top: 2%;
+  background-color: #005ea4;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #005ea4;
+  color: white;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 1.5%;
+  font-family: 'IBM Plex Sans', sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  float: right;
+  cursor: pointer;
+}
+
+.createLabel {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.hobbyButton {background-image: linear-gradient(to right, #008ac6 0%, #01b696 100%)}
+.workButton {background-image: linear-gradient(to right, #7663d7 0%, #8492f8 100%)}
+.socialButton {background-image: linear-gradient(to right, #ff83c5 0%, #ffc584 100%)}
+
+.typeButton {
+  font-size: large;
+  font-weight:500;
+  display: block;
+  margin: 10px;
+  padding: 25px 45px;
+  text-align: left;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
 }

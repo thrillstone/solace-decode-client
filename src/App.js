@@ -129,25 +129,17 @@ function App() {
 					<div className="dialog-container">
 						<div className="dialog">
 							<div className="dialog-contents">
-								<h2>Add a channel</h2>
-								<label>
-									Name:
-									<input type="text" value={newChannelName} onChange={changeName}/>
-								</label>
-								<label>
-									Type:
-									<select value={newChannelType} onChange={changeChannelType}>
-										<option value="hobbies">Hobbies</option>
-										<option value="social" selected>Social</option>
-										<option value="work">Work</option>
-									</select>
-								</label>
-								<label>
-									Description:
-									<textarea class="new_channel_description" resize="none" onChange={changeChannelDescription}/>
-								</label>
-								<button onClick={saveChannel}>Save</button>
-								<button onClick={toggleAddChannelVisible}>Cancel</button>
+								<h2>Create Channel</h2>
+								<p>Name</p>
+								<input className="new_channel_name textarea" type="text" value={newChannelName} onChange={changeName}/>
+								<p>Description</p>
+								<textarea class="new_channel_description textarea" resize="none" onChange={changeChannelDescription}/>
+								<p>Type</p>
+								<a className="typeButton hobbyButton" value="hobbies" onClick={changeChannelType}>Hobbies</a>
+								<a className="typeButton socialButton" value="social" onClick={changeChannelType}>Social</a>
+								<a className="typeButton workButton" value="work" onClick={changeChannelType}>Work</a>
+								<button className="createButton" onClick={saveChannel}>CREATE</button>
+								<button className="cancelButton" onClick={toggleAddChannelVisible}>CANCEL</button>
 							</div>
 						</div>
 					</div>
