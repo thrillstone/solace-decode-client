@@ -132,15 +132,19 @@
 	display: flex;
   }
 
-  .chat_textbox input {
+  .chat_textbox textarea {
 	  margin: 8px;
 	  flex: 1;
 	  border-radius: 4px;
 	  border: none;
 	  background: #fcfcff;
+	  padding: 8px;
+	  resize: none;
+	  font-family: inherit;
+	  font-size: inherit;
   }
 
-  .chat_textbox input:focus {
+  .chat_textbox textarea:focus {
 	  outline: none;
   }
 
