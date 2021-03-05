@@ -3,6 +3,7 @@ import { EventContext } from "./solace/Messaging";
 import { useEffect, useContext, useState, useRef } from 'react';
 import Message from './Message'
 import './App.css'
+import {default as send} from './icons/send-24px.svg';
 
 function uuidv4() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -112,7 +113,9 @@ function Messages(props) {
 			<div className="chat_footer">
 				<div className="chat_textbox">
 					<input value={text} onChange={(e) => setText(e.target.value)} placeholder="Send a message" />
-					<button type="submit" disabled={!text} onClick={publishMessage}>↩️</button>
+					<button class="sendButton" type="submit" disabled={!text} onClick={publishMessage}>
+						<img src={send}/>
+					</button>
 				</div>
 			</div>
 		</div>

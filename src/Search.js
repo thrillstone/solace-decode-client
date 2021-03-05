@@ -1,6 +1,7 @@
 import React from 'react';
 import './Messages.css';
 import './Search.css';
+import {default as search} from './icons/search-24px.svg';
 
 const SearchScope = Object.freeze({current: 0, all: 1});
 
@@ -140,7 +141,7 @@ class Search extends React.Component {
         return <div style={{width: '100%', display: 'flex', alignItems: 'center'}}>
             <div style={{width: '100%', height: '2.5em', backgroundColor: 'white', display: 'flex', borderRadius: '4px'}}>
                 <div style={{width: '80%', display: 'flex', alignItems: 'center'}}>
-                    <button style={{marginLeft: '8px', border: 'none', background: 'none'}} onClick={this.search}><img src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/search-512.png" style={{maxWidth: '1.5em', maxHeight: '1.5em', filter: 'brightness(0.6) invert(.7) sepia(.5) hue-rotate(180deg) saturate(200%)', '-webkit-filter': 'brightness(0.6) invert(.7) sepia(.5) hue-rotate(180deg) saturate(200%)'}}></img></button>
+                    <button style={{marginLeft: '8px', border: 'none', background: 'none'}} onClick={this.search}><img src={search}/></button>
                     <input style={{width: '90%', border: 0, marginLeft: '8px'}} onChange={this.enterText} placeholder={this.getPlaceholderText()}/>
                 </div>
                 <button style={{width: '8em', backgroundColor: 'lightgray', border: 0}} onClick={() => this.changeSearchScope(SearchScope.current)}>
