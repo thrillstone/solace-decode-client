@@ -1,0 +1,40 @@
+.summary {
+    width: 580px;
+    height: 380px;
+    box-shadow: 1px 1px 5px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.gradient {
+    float: left;
+    height: 100%;
+    width: 20%;
+}
+
+.summaryText {
+    margin-left: 10%;
+}
+
+.category {
+    color: #005ea4;
+}
+
+.maintopics {
+    color: #6a81de;
+}
+
+.confidence {
+    color: #6a81de;
+    display: inline;
+}
+
+.bolded {
+    font-weight: bold;
+    display: inline;
+}
+
+.dataDiv {
+    margin-left: 25%;
+    margin-right: 5%;
+}
