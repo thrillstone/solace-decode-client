@@ -3,6 +3,8 @@ import { EventContext } from "./solace/Messaging";
 import Messages from "./Messages";
 import ChannelsList from "./ChannelsList";
 import Login from "./Login";
+import Search from "./Search";
+import Branding from "./Branding";
 import { useEffect, useContext, useState } from 'react';
 import { user, UserContext } from "./auth/User"
 
@@ -14,6 +16,8 @@ function App() {
 	const [selectedChannel, setSelectedChannel] = useState(null);
 	const [addChannelVisible, setAddChannelVisible] = useState(false);
 	const [newChannelName, setNewChannelName] = useState("");
+	const [newChannelType, setNewChannelType] = useState("social");
+	const [newChannelDescription, setNewChannelDescription] = useState("");
 
 	const [userState, setUser] = useState(user);
 
@@ -30,11 +34,17 @@ function App() {
 			.catch(console.error);
 			messaging.on("channel", (event) => {
 				channels.push(event);
-				setChannels(channels);
+				setChannels([...channels]);
 			});
 		};
 		setupMessaging();
 	}, [messaging]);
+
+	useEffect(() => {
+		if (connected) {
+			messaging.subscribe("channels");
+		}
+	}, [connected])
 
 	const publishMessage = (message) => {
 		if (connected){
@@ -53,32 +63,40 @@ function App() {
 			.then((response) => response.json())
 			.then((c) => {
 				setChannels(c);
+				if (c.length > 0) {
+					setSelectedChannel(c[0]);
+				}
 			})
 			.catch((error) => {
 				console.error(error);
-				setChannels([{name:'deCODE', id: 0}, {name:'Solace', id: 1}]);
+				var x = [{name:'deCODE', id: 0, channelType: "Work"}, {name:'Solace', id: 1, channelType: "Work"}]
+				setChannels(x);
+				if (x.length > 0) {
+					setSelectedChannel(x[0]);
+				}
 			});
 		};
 		fetchChannels();
 	}, []);
 
-	// TODO selection won't work this way, need to fix
 	const channelChanged = (channel) => {
 		console.log(channel);
-		channels.forEach(c => c.selected = false);
-		channels.find(c => c.id = channel.id).selected = true;
 		setSelectedChannel(channel);
 		setChannels(channels);
 	}
 
 	const saveChannel = () => {
+		const date = new Date();
 		fetch('http://localhost:8085/channels', {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				name: newChannelName
+				name: newChannelName,
+				channelType: newChannelType,
+				time: date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+				description: newChannelDescription
 			})
 		}).catch(console.error)
 		.finally(() => setAddChannelVisible(false));
@@ -92,6 +110,14 @@ function App() {
 		setNewChannelName(event.target.value)
 	}
 
+	const changeChannelType = (event) => {
+		setNewChannelType(event.target.value);
+	}
+
+	const changeChannelDescription = (event) => {
+		setNewChannelDescription(event.target.value);
+	}
+
 	if (!connected) {
 		return <h1>Loading</h1>;
 	}
@@ -99,15 +125,38 @@ function App() {
 	return (
     <UserContext.Provider value={[userState, setUser]}>
       <div className="App">
+        <div className="header" style={{display: 'flex'}}>
+          <Branding/>
+          <Search channel={selectedChannel} onChangeChannel={channelChanged} user={{id: 0, name: 'Bob'}}/>
+        </div>
         <div className="container">
-          <ChannelsList channels={channels} onChangeChannel={channelChanged} onNewChannel={toggleAddChannelVisible}/>
+          <ChannelsList channels={channels} onChangeChannel={channelChanged} selectedChannel={selectedChannel} onNewChannel={toggleAddChannelVisible}/>
           <Messages channel={selectedChannel} />
           {!userState.userName && <Login />}
           {addChannelVisible &&
             <div className="dialog-container">
               <div className="dialog">
-                <input type="text" value={newChannelName} onChange={changeName}/>
-                <button onClick={saveChannel}>Save</button>
+                <div className="dialog-contents">
+                  <h2>Add a channel</h2>
+                  <label>
+                    Name:
+                    <input type="text" value={newChannelName} onChange={changeName}/>
+                  </label>
+                  <label>
+                    Type:
+                    <select value={newChannelType} onChange={changeChannelType}>
+                      <option value="hobbies">Hobbies</option>
+                      <option value="social" selected>Social</option>
+                      <option value="work">Work</option>
+                    </select>
+                  </label>
+                  <label>
+                    Description:
+                    <textarea class="new_channel_description" resize="none" onChange={changeChannelDescription}/>
+                  </label>
+                  <button onClick={saveChannel}>Save</button>
+                  <button onClick={toggleAddChannelVisible}>Cancel</button>
+                </div>
               </div>
             </div>
           }

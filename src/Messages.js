@@ -1,6 +1,6 @@
 import "./Messages.css";
 import { EventContext } from "./solace/Messaging";
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useRef } from 'react';
 import Message from './Message'
 import './App.css'
 
@@ -14,35 +14,78 @@ function uuidv4() {
 function Messages(props) {
 	const messaging = useContext(EventContext);
 	
-	const [messages, setMessages] = useState([{type: "message", id: 0, userId: 0, name: "Faraz", text: "Hello, world! This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message.", timestamp: "1:46"}, {type: "message", id: 1, userId: 1, name: "World", text: "Hi, Faraz! https://www.reddit.com/r/all/", timestamp: "1:47"}]);
-	const [text, setText] = useState("")
+	const [messages, setMessages] = useState([]);
+	const [text, setText] = useState("");
+	const [currentChannel, setCurrentChannel] = useState(props.channel);
+	const [summaryVisibile, setSummaryVisibile] = useState(false);
+	const channelRef = useRef();
+	const messagesRef = useRef();
+	channelRef.current = props.channel;
+	messagesRef.current = messages;
+
+	const receiveMessage = (event) => {
+		console.log(event, channelRef.current)
+		if (event.channelId === channelRef.current?.id) {
+			messagesRef.current.push(event);
+			setMessages([...messagesRef.current]);
+		}
+	};
 
 	useEffect(() => {
 		const setupMessaging = () => {
-			messaging.on("message", (event) => {
-				messages.push(event);
-				setMessages([...messages]);
-			});
+			messaging.on("message", receiveMessage);
 		};
 		setupMessaging();
 	}, [messaging]);
 
 	useEffect(() => {
+		console.log("Update chnanle", props.channel);
+		setCurrentChannel(props.channel);
 		if (props.channel) {
 			console.log("Subscribing to channel", props.channel)
 			messaging.subscribe(`channels/${props.channel.id}/messages`);
 		}
+		setMessages([]);
 	}, [props.channel]);
+
+	const toggleSummaryVisible = () => {
+		setSummaryVisibile(!summaryVisibile);
+	}
 
 	const publishMessage = () => {
 		if (props.channel) {
 			console.log("Publishing to channel", props.channel)
-			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", id: uuidv4(), userId: 0, name: "Faraz", text: text, timestamp: "1:46 PM"});
+			messaging.publish(`channels/${props.channel.id}/messages`, {type: "message", channelId: props.channel.id, id: uuidv4(), userId: 0, name: "Faraz", text: text, timestamp: "1:46 PM"});
 		}
 	}
 
 	return (
 		<div className="Messages">
+			<div className="channel_summary">
+				<div className="summary_header" onClick={toggleSummaryVisible}>
+					<div className="summary_title">{props.channel.name}</div>
+					{summaryVisibile &&
+						<div className="read_status">
+							<div><b>80</b> Unread messages</div>
+							<div><b>0</b> Mentions</div>
+						</div>
+					}
+				</div>
+				{summaryVisibile &&
+					<div className="summary_content">
+						<div className="summary_detail">
+							<div className="summary_subtitle">Main Topics</div>
+							<div className="topic">
+								<div className="topic_name">"cats"</div>
+								<div className="topic_confidence"><b>90%</b> confidence</div>
+							</div>
+						</div>
+						<div className="summary_section">
+							{props.channel.description}
+						</div>
+					</div>
+				}
+			</div>
 			<div className="chat_body">
 				{
 					messages.map((message) =>

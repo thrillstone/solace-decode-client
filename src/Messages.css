@@ -8,6 +8,90 @@
 	flex: 1;
 }
 
+.channel_summary {
+	display: flex;
+	flex-direction: column;
+	background-color: #6a81de;
+	color: #fcfcff;
+}
+
+.summary_content {
+	display: flex;
+	flex-direction: row;
+	padding-left: 30px;
+	padding-bottom: 20px;
+}
+
+.summary_header {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.summary_title {
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 28px;
+	min-width: 200px;
+}
+
+.summary_subtitle {
+	font-weight: bold;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 28px;
+}
+
+.summary_header {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.summary_header .read_status {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.summary_header .read_status > div {
+	padding-left: 30px;
+}
+
+.summary_detail {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	min-width: 200px;
+}
+
+.summary_detail .topic {
+	display: flex;
+	flex-direction: row;
+	padding-left: 30px;
+}
+
+.summary_detail .topic .topic_name {
+	flex-grow: 1;
+}
+
+.summary_detail .topic .topic_confidence {
+	flex-grow: 1;
+}
+
+.summary_section {
+	padding-top: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.summary_header {
+	display: flex;
+	flex-direction: row;
+}
+
 .Message .icon {
 	margin: 0 8px;
 }
