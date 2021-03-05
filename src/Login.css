@@ -1,8 +1,83 @@
 #login-page {
+  background-image: linear-gradient(rgb(106, 129, 222), rgb(0, 94, 164));
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  background-image: linear-gradient(rgb(106, 129, 222), rgb(0, 94, 164));
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: white;
+}
+
+.logo-div {
+  background-color: rgba(150, 150, 150, 0.5);
+  width: 500px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#powered-by {
+  font-size: 15px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#solace-logo-white {
+  border: none;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.login-title {
+  font-size: 32px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-subtitle {
+  font-weight:500;
+}
+
+#avatar-pick {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.login-input {
+  height: 48px;
+  width: 100%;
+  padding-left: 15px;
+  font-size: 16px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  color: rgb(24,24,24);
+  background-color: #E6EDF8;
+  border: 2px solid #C2CFEF;
+}
+
+.login-submit {
+  height: 48px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  color: #005EA4;
+  background-color: #D4DAF5;
+}
+
+.login-avatar {
+  height: 70px;
+  border: 5px solid #3971C3;
+  opacity: 60%;
+}
+
+.full {
+  opacity: 100%;
 }
