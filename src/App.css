@@ -54,3 +54,13 @@
 .messageText {
   margin-top: 0%;
 }
+
+.chat_footer {
+  display: inline;
+}
+
+.chat_textarea {
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  width: 100%;
+}
