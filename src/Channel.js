@@ -8,7 +8,7 @@ function Channel(props) {
   }
 
   return (
-    <div onClick={handleClick} className={`Channel ${props.channel.selected ? "selected" : ""}`}>
+    <div onClick={handleClick} className={`Channel ${props.channel == props.selectedChannel ? "selected" : ""}`}>
       <div className="icon"></div>
       <div className="info">
         <div className="name">{props.channel.name}</div>
