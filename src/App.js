@@ -34,7 +34,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<ChannelsList channels={channels} onChangeChannel={channelChanged} />
+			{/* <ChannelsList channels={channels} onChangeChannel={channelChanged} /> */}
 			<Messages channel={selectedChannel} />
 		</div>
 	);

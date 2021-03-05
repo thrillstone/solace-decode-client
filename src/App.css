@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
+
 .App {
   text-align: center;
+  font-family: 'IBM Plex Sans';
 }
 
 .App-logo {
@@ -37,9 +40,15 @@
   }
 }
 
+.chat_body {
+  width: 100%;
+  height: 500px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 .message {
   text-align: left;
-  margin-left: 1%;
 }
 
 .messageName {
@@ -48,19 +57,26 @@
 
 .messageTime {
   margin-left: 0.5%;
-  font-size: 10px;
+  font-size: 12px;
+}
+
+.input {
+  width: 10px;
 }
 
 .messageText {
-  margin-top: 0%;
+  margin-top: 0.3%;
+}
+
+.messageImage {
+  float: left;
+  max-width: 40px;
+  max-height: 40px;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 }
 
 .chat_footer {
-  display: inline;
-}
-
-.chat_textarea {
-  margin-left: 0.5%;
-  margin-right: 0.5%;
-  width: 100%;
+  height: 10%;
+  width: 100%
 }
