@@ -14,7 +14,7 @@ function uuidv4() {
 function Messages(props) {
 	const messaging = useContext(EventContext);
 	
-	const [messages, setMessages] = useState([{type: "message", channelId: props.channel.id, id: 0, userId: 0, name: "Faraz", text: "Hello, world! This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message.", timestamp: "1:46"}, {type: "message", channelId: props.channel.id, id: 1, userId: 1, name: "World", text: "Hi, Faraz! https://www.reddit.com/r/all/", timestamp: "1:47"}]);
+	const [messages, setMessages] = useState([{type: "message", channelId: 0, id: 0, userId: 0, name: "Faraz", text: "Hello, world! This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message. This is a really long message.", timestamp: "1:46"}, {type: "message", channelId: 0, id: 1, userId: 1, name: "World", text: "Hi, Faraz! https://www.reddit.com/r/all/", timestamp: "1:47"}]);
 	const [text, setText] = useState("")
 
 	useEffect(() => {
